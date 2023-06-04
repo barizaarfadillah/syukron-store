@@ -24,10 +24,10 @@ img{
 @import url("./loading.css");
 
 /* ----------- Products ------------- */
-/* @import url("./product.css"); */
+@import url("./product.css");
 
 /* ----------- Profile ------------- */
 /* @import url("./profile.css"); */
 
 /* ----------- Products Manager ------------- */
-/* @import url("./products_manager.css"); */
+@import url("./products_manager.css");

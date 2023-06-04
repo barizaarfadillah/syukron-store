@@ -32,7 +32,7 @@ export default function Register() {
 
     if (res.err)
       return dispatch({ type: "NOTIFY", payload: { error: res.err } });
-
+    router.push("/login");
     return dispatch({ type: "NOTIFY", payload: { success: res.msg } });
   };
 

@@ -22,20 +22,14 @@ export default function Navbar({}) {
     localStorage.removeItem("firstLogin");
     dispatch({ type: "AUTH", payload: {} });
     dispatch({ type: "NOTIFY", payload: { success: "Logged out!" } });
-    return router.push("/");
+    return router.push("/login");
   };
 
   const adminRouter = () => {
     return (
       <>
-        <Link href="/users" className="dropdown-item">
-          Users
-        </Link>
         <Link href="/create" className="dropdown-item">
           Products
-        </Link>
-        <Link href="/categories" className="dropdown-item">
-          Categories
         </Link>
       </>
     );
@@ -71,7 +65,7 @@ export default function Navbar({}) {
               Profile
             </Link>
           </li>
-          <li>{auth.user.role === "admin" && adminRouter()}</li>
+          {/* <li>{auth.user.role === "admin" && adminRouter()}</li> */}
           <li>
             <button className="dropdown-item" onClick={handleLogout}>
               Logout
@@ -110,18 +104,20 @@ export default function Navbar({}) {
                   className="fas fa-shopping-cart position-relative"
                   aria-hidden="true"
                 >
-                  {/* <span className="position-absolute"
-                                    style={{
-                                        padding: '3px 6px',
-                                        background: '#ed143dc2',
-                                        borderRadius: '50%',
-                                        top: '-10px',
-                                        right: '-10px',
-                                        color: 'white',
-                                        fontSize: '14px'
-                                    }}>
-                                        {cart.length}
-                                    </span> */}
+                  <span
+                    className="position-absolute"
+                    style={{
+                      padding: "3px 6px",
+                      background: "#ed143dc2",
+                      borderRadius: "50%",
+                      top: "-10px",
+                      right: "-10px",
+                      color: "white",
+                      fontSize: "14px",
+                    }}
+                  >
+                    {cart.length}
+                  </span>
                 </i>{" "}
                 Cart
               </Link>
