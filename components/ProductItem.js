@@ -20,8 +20,8 @@ export default function ProductItem({ product }) {
         <button
           className="btn btn-danger"
           style={{ marginLeft: "5px", flex: 1 }}
-          data-toggle="modal"
-          data-target="#exampleModal"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
           onClick={() =>
             dispatch({
               type: "ADD_MODAL",

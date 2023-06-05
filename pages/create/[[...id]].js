@@ -1,5 +1,5 @@
 import { DataContext } from "@/store/GlobalState";
-import { getData, postData } from "@/utils/fetchData";
+import { getData, postData, putData } from "@/utils/fetchData";
 import { imageUpload } from "@/utils/imageUpload";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
@@ -123,6 +123,7 @@ export default function ProductsManager() {
       );
       if (res.err)
         return dispatch({ type: "NOTIFY", payload: { error: res.err } });
+      router.push("/");
     } else {
       res = await postData(
         "product",
@@ -131,8 +132,8 @@ export default function ProductsManager() {
       );
       if (res.err)
         return dispatch({ type: "NOTIFY", payload: { error: res.err } });
+      router.push("/");
     }
-    router.push("/");
 
     return dispatch({ type: "NOTIFY", payload: { success: res.msg } });
   };

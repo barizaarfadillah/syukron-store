@@ -1,10 +1,24 @@
 import { deleteItem } from "@/store/Actions";
 import { DataContext } from "@/store/GlobalState";
+import { deleteData } from "@/utils/fetchData";
+import { useRouter } from "next/router";
 import { useContext } from "react";
 
 export default function Modal() {
   const { state, dispatch } = useContext(DataContext);
   const { modal, auth } = state;
+
+  const router = useRouter();
+
+  const deleteProduct = (item) => {
+    dispatch({ type: "NOTIFY", payload: { loading: true } });
+    deleteData(`product/${item.id}`, auth.token).then((res) => {
+      if (res.err)
+        return dispatch({ type: "NOTIFY", payload: { error: res.err } });
+      dispatch({ type: "NOTIFY", payload: { success: res.msg } });
+      return router.push("/");
+    });
+  };
 
   const handleSubmit = () => {
     if (modal.length !== 0) {
