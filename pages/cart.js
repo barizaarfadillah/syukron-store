@@ -2,6 +2,7 @@ import CartItem from "@/components/CartItem";
 import { DataContext } from "@/store/GlobalState";
 import { getData } from "@/utils/fetchData";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 
 export default function Cart() {
@@ -11,6 +12,8 @@ export default function Cart() {
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState("");
   const [mobile, setMobile] = useState("");
+  const [callback, setCallback] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const getTotal = () => {
@@ -57,11 +60,43 @@ export default function Cart() {
         type: "NOTIFY",
         payload: { error: "Please add your address and mobile." },
       });
-    else
+
+    let newCart = [];
+    for (const item of cart) {
+      const res = await getData(`product/${item._id}`);
+      if (res.product.inStock - item.quantity >= 0) {
+        newCart.push(item);
+      }
+    }
+
+    if (newCart.length < cart.length) {
+      setCallback(!callback);
       return dispatch({
         type: "NOTIFY",
-        payload: { success: "Pembayaran Berhasil" },
+        payload: {
+          error: "The product is out of stock or the quantity is insufficient.",
+        },
       });
+    }
+
+    dispatch({ type: "NOTIFY", payload: { loading: true } });
+
+    postData("order", { address, mobile, cart, total }, auth.token).then(
+      (res) => {
+        if (res.err)
+          return dispatch({ type: "NOTIFY", payload: { error: res.err } });
+
+        dispatch({ type: "ADD_CART", payload: [] });
+
+        const newOrder = {
+          ...res.newOrder,
+          user: auth.user,
+        };
+        dispatch({ type: "ADD_ORDERS", payload: [...orders, newOrder] });
+        dispatch({ type: "NOTIFY", payload: { success: res.msg } });
+        return router.push(`/order/${res.newOrder._id}`);
+      }
+    );
   };
 
   if (cart.length === 0) {

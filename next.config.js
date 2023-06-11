@@ -8,5 +8,7 @@ module.exports = {
     CLOUD_UPDATE_PRESET: "syukron_store",
     CLOUD_NAME: "barizaarfadillah",
     CLOUD_API: "https://api.cloudinary.com/v1_1/barizaarfadillah/image/upload",
+    PAYPAL_CLIENT_ID:
+      "AYaEcgLJuIG2lCnKaypzUOhfTqkpIaYPXJmuSqkyU97oWgcnzzqnEuSZ4zh3gEg7m37LfpuIV1-lhHNV",
   },
 };
