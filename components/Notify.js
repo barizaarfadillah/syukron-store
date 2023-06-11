@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { DataContext } from "../store/GlobalState";
-import Loading from "./Loading";
 import Toast from "./Toast";
 
 const Notify = () => {
@@ -9,7 +8,6 @@ const Notify = () => {
 
   return (
     <>
-      {notify.loading && <Loading />}
       {notify.error && (
         <Toast
           msg={{ msg: notify.error, title: "Error" }}

@@ -12,7 +12,7 @@ export default function ProductItem({ product }) {
       <>
         <Link
           href={`create/${product._id}`}
-          className="btn btn-info"
+          className="btn btn-dark"
           style={{ marginRight: "5px", flex: 1 }}
         >
           Edit
@@ -46,10 +46,10 @@ export default function ProductItem({ product }) {
       <>
         <Link
           href={`product/${product._id}`}
-          className="btn btn-info"
+          className="btn btn-dark"
           style={{ marginRight: "5px", flex: 1 }}
         >
-          View
+          Lihat
         </Link>
         <button
           className="btn btn-success"
@@ -57,7 +57,7 @@ export default function ProductItem({ product }) {
           disabled={product.inStock === 0 ? true : false}
           onClick={() => dispatch(addToCart(product, cart))}
         >
-          Buy
+          Beli
         </button>
       </>
     );
@@ -78,9 +78,9 @@ export default function ProductItem({ product }) {
         <div className="d-flex justify-content-between">
           <h6 className="text-danger">Rp {product.price}</h6>
           {product.inStock > 0 ? (
-            <h6 className="text-danger">In Stock: {product.inStock}</h6>
+            <h6 className="text-danger">Stok: {product.inStock}</h6>
           ) : (
-            <h6 className="text-danger">Out Stock</h6>
+            <h6 className="text-danger">Stok Habis</h6>
           )}
         </div>
 
@@ -90,7 +90,6 @@ export default function ProductItem({ product }) {
 
         <div className="row justify-content-between mx-0">
           {!auth.user || auth.user.role !== "admin" ? userLink() : adminLink()}
-          {/* {userLink()} */}
         </div>
       </div>
     </div>

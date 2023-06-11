@@ -24,8 +24,6 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch({ type: "NOTIFY", payload: { loading: true } });
-
     const res = await postData("auth/login", userData);
 
     if (res.err)
@@ -57,7 +55,7 @@ export default function Login() {
       >
         <h3 className="fw-bolder text-center">Login</h3>
         <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Email address</label>
+          <label htmlFor="exampleInputEmail1">Email</label>
           <input
             type="email"
             className="form-control"
@@ -67,9 +65,6 @@ export default function Login() {
             value={email}
             onChange={handleChangeInput}
           />
-          <small id="emailHelp" className="form-text text-muted">
-            We'll never share your email with anyone else.
-          </small>
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">Password</label>
@@ -88,9 +83,9 @@ export default function Login() {
         </button>
 
         <p>
-          You don't have an account?{" "}
+          Anda tidak memiliki akun?{" "}
           <Link href="/register" style={{ color: "crimson" }}>
-            Register Now
+            Daftar Sekarang
           </Link>
         </p>
       </form>

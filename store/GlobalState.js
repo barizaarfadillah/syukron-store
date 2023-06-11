@@ -10,7 +10,7 @@ export const DataProvider = ({ children }) => {
     auth: {},
     cart: [],
     modal: [],
-    // orders: [],
+    orders: [],
     // users: [],
   };
 

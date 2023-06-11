@@ -20,9 +20,9 @@ export default function CartItem({ item, dispatch, cart }) {
 
         <h6 className="text-danger">Rp {item.quantity * item.price}</h6>
         {item.inStock > 0 ? (
-          <p className="mb-1 text-danger">In Stock: {item.inStock}</p>
+          <p className="mb-1 text-danger">Stok: {item.inStock}</p>
         ) : (
-          <p className="mb-1 text-danger">Out Stock</p>
+          <p className="mb-1 text-danger">Stok Habis</p>
         )}
       </td>
 

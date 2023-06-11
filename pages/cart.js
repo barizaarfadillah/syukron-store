@@ -1,6 +1,6 @@
 import CartItem from "@/components/CartItem";
 import { DataContext } from "@/store/GlobalState";
-import { getData } from "@/utils/fetchData";
+import { getData, postData } from "@/utils/fetchData";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
@@ -78,8 +78,6 @@ export default function Cart() {
         },
       });
     }
-
-    dispatch({ type: "NOTIFY", payload: { loading: true } });
 
     postData("order", { address, mobile, cart, total }, auth.token).then(
       (res) => {
@@ -173,7 +171,7 @@ export default function Cart() {
             className="btn btn-dark my-2"
             onClick={handlePayment}
           >
-            Bayar
+            Pesan Sekarang
           </Link>
         </div>
       </div>

@@ -27,13 +27,13 @@ export default function Home(props) {
           style={{ marginBottom: "-10px" }}
         >
           <Link href={`/create`} style={{ marginRight: "5px", flex: 1 }}>
-            New Product
+            Tambah Produk
           </Link>
         </div>
       )}
       <div className="products">
         {products.length === 0 ? (
-          <h2>No Products</h2>
+          <h2>Tidak Ada Produk</h2>
         ) : (
           products.map((product) => (
             <ProductItem key={product._id} product={product} />

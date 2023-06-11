@@ -11,7 +11,6 @@ export default function Modal() {
   const router = useRouter();
 
   const deleteProduct = (item) => {
-    dispatch({ type: "NOTIFY", payload: { loading: true } });
     deleteData(`product/${item.id}`, auth.token).then((res) => {
       if (res.err)
         return dispatch({ type: "NOTIFY", payload: { error: res.err } });
@@ -63,7 +62,9 @@ export default function Modal() {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="modal-body">Do you want to delete this item?</div>
+          <div className="modal-body">
+            Apakah Anda ingin menghapus item ini?
+          </div>
           <div className="modal-footer">
             <button
               type="button"
@@ -71,14 +72,14 @@ export default function Modal() {
               data-bs-dismiss="modal"
               onClick={handleSubmit}
             >
-              Yes
+              Iya
             </button>
             <button
               type="button"
               className="btn btn-danger"
               data-bs-dismiss="modal"
             >
-              Cancel
+              Batal
             </button>
           </div>
         </div>

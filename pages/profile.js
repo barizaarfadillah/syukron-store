@@ -41,7 +41,6 @@ export default function Profile() {
   };
 
   const updatePassword = () => {
-    dispatch({ type: "NOTIFY", payload: { loading: true } });
     patchData("user/resetPassword", { password }, auth.token).then((res) => {
       if (res.err)
         return dispatch({ type: "NOTIFY", payload: { error: res.err } });
@@ -76,7 +75,6 @@ export default function Profile() {
 
   const updateInfor = async () => {
     let media;
-    dispatch({ type: "NOTIFY", payload: { loading: true } });
 
     if (avatar) media = await imageUpload([avatar]);
 
@@ -177,11 +175,7 @@ export default function Profile() {
               />
             </div>
 
-            <button
-              className="btn btn-dark my-2"
-              disabled={notify.loading}
-              onClick={handleUpdateProfile}
-            >
+            <button className="btn btn-dark my-2" onClick={handleUpdateProfile}>
               Update
             </button>
           </div>
@@ -208,14 +202,12 @@ export default function Profile() {
                   {orders.map((order) => (
                     <tr key={order._id}>
                       <td className="p-2">
-                        <Link href={`/order/${order._id}`}>
-                          <a>{order._id}</a>
-                        </Link>
+                        <Link href={`/order/${order._id}`}>{order._id}</Link>
                       </td>
                       <td className="p-2">
                         {new Date(order.createdAt).toLocaleDateString()}
                       </td>
-                      <td className="p-2">${order.total}</td>
+                      <td className="p-2">Rp {order.total}</td>
                       <td className="p-2">
                         {order.delivered ? (
                           <i className="fas fa-check text-success"></i>

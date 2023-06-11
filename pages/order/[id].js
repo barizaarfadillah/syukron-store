@@ -18,21 +18,19 @@ export default function DetailOrder() {
 
   if (!auth.user) return null;
   return (
-    <div className="container-fluid">
+    <div className="my-3 container-fluid">
       <div className="my-3">
-        <div>
-          <button className="btn btn-dark" onClick={() => router.back()}>
-            <i className="fas fa-long-arrow-alt-left" aria-hidden="true"></i> Go
-            Back
-          </button>
-        </div>
-
-        <OrderDetail
-          orderDetail={orderDetail}
-          state={state}
-          dispatch={dispatch}
-        />
+        <button className="btn btn-dark" onClick={() => router.back()}>
+          <i className="fas fa-long-arrow-alt-left" aria-hidden="true"></i>{" "}
+          Kembali
+        </button>
       </div>
+
+      <OrderDetail
+        orderDetail={orderDetail}
+        state={state}
+        dispatch={dispatch}
+      />
     </div>
   );
 }

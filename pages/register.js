@@ -26,8 +26,6 @@ export default function Register() {
     const errMsg = valid(name, email, password, cf_password);
     if (errMsg) return dispatch({ type: "NOTIFY", payload: { error: errMsg } });
 
-    dispatch({ type: "NOTIFY", payload: { loading: true } });
-
     const res = await postData("auth/register", userData);
 
     if (res.err)
@@ -49,7 +47,7 @@ export default function Register() {
       >
         <h3 className="fw-bolder text-center">Register</h3>
         <div className="form-group">
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">Nama</label>
           <input
             type="text"
             className="form-control"
@@ -61,7 +59,7 @@ export default function Register() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Email address</label>
+          <label htmlFor="exampleInputEmail1">Email</label>
           <input
             type="email"
             className="form-control"
@@ -71,9 +69,6 @@ export default function Register() {
             value={email}
             onChange={handleChangeInput}
           />
-          <small id="emailHelp" className="form-text text-muted">
-            We'll never share your email with anyone else.
-          </small>
         </div>
 
         <div className="form-group">
@@ -105,9 +100,9 @@ export default function Register() {
         </button>
 
         <p>
-          Already have an account?{" "}
+          Sudah memiliki akun?{" "}
           <Link href="/login" style={{ color: "crimson" }}>
-            Login Now
+            Login Sekarang
           </Link>
         </p>
       </form>

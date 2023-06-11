@@ -107,7 +107,6 @@ export default function ProductsManager() {
         payload: { error: "Please add all the fields." },
       });
 
-    dispatch({ type: "NOTIFY", payload: { loading: true } });
     let media = [];
     const imgNewURL = images.filter((img) => !img.url);
     const imgOldURL = images.filter((img) => img.url);
@@ -143,7 +142,7 @@ export default function ProductsManager() {
       <div className="products_manager">
         <form className="row my-4 mx-4" onSubmit={handleSubmit}>
           <div className="col-md-6">
-            <label>Title</label>
+            <label>Judul Buku</label>
             <input
               type="text"
               name="title"
@@ -153,7 +152,7 @@ export default function ProductsManager() {
               onChange={handleChangeInput}
             />
 
-            <label>Author</label>
+            <label>Penulis</label>
             <input
               type="text"
               name="author"
@@ -165,7 +164,7 @@ export default function ProductsManager() {
 
             <div className="row">
               <div className="col-sm-6">
-                <label htmlFor="price">Price</label>
+                <label htmlFor="price">Harga</label>
                 <input
                   type="number"
                   name="price"
@@ -177,7 +176,7 @@ export default function ProductsManager() {
               </div>
 
               <div className="col-sm-6">
-                <label htmlFor="price">In Stock</label>
+                <label htmlFor="price">Stok</label>
                 <input
                   type="number"
                   name="inStock"
@@ -189,7 +188,7 @@ export default function ProductsManager() {
               </div>
             </div>
 
-            <label>Description</label>
+            <label>Deskripsi</label>
             <textarea
               name="description"
               id="description"

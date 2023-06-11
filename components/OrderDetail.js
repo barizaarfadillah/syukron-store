@@ -1,5 +1,4 @@
 import Link from "next/link";
-import PaypalBtn from "./paypalBtn";
 import { patchData } from "../utils/fetchData";
 import { updateItem } from "../store/Actions";
 
@@ -7,8 +6,6 @@ export default function OrderDetail({ orderDetail, state, dispatch }) {
   const { auth, orders } = state;
 
   const handleDelivered = (order) => {
-    dispatch({ type: "NOTIFY", payload: { loading: true } });
-
     patchData(`order/delivered/${order._id}`, null, auth.token).then((res) => {
       if (res.err)
         return dispatch({ type: "NOTIFY", payload: { error: res.err } });
@@ -33,6 +30,25 @@ export default function OrderDetail({ orderDetail, state, dispatch }) {
       return dispatch({ type: "NOTIFY", payload: { success: res.msg } });
     });
   };
+  const handlePayment = (order) => {
+    patchData(`order/payment/${order._id}`, null, auth.token).then((res) => {
+      if (res.err)
+        return dispatch({ type: "NOTIFY", payload: { error: res.err } });
+
+      dispatch(
+        updateItem(
+          orders,
+          order._id,
+          {
+            ...order,
+          },
+          "ADD_ORDERS"
+        )
+      );
+
+      return dispatch({ type: "NOTIFY", payload: { success: res.msg } });
+    });
+  };
 
   if (!auth.user) return null;
   return (
@@ -43,15 +59,18 @@ export default function OrderDetail({ orderDetail, state, dispatch }) {
           style={{ margin: "20px auto" }}
           className="row justify-content-around"
         >
-          <div className="text-uppercase my-3" style={{ maxWidth: "600px" }}>
-            <h2 className="text-break">Order {order._id}</h2>
+          <div
+            className="text-uppercase my-3 bg-light rounded p-4"
+            style={{ maxWidth: "600px" }}
+          >
+            <h2 className="text-break mb-3">Pesanan {order._id}</h2>
 
-            <div className="mt-4 text-secondary">
-              <h3>Shipping</h3>
-              <p>Name: {order.user.name}</p>
+            <div className="mt-2 text-secondary">
+              <h3>Pengiriman</h3>
+              <p>Nama: {order.user.name}</p>
               <p>Email: {order.user.email}</p>
-              <p>Address: {order.address}</p>
-              <p>Mobile: {order.mobile}</p>
+              <p>Alamat: {order.address}</p>
+              <p>Telepon: {order.mobile}</p>
 
               <div
                 className={`alert ${
@@ -68,24 +87,10 @@ export default function OrderDetail({ orderDetail, state, dispatch }) {
                     className="btn btn-dark text-uppercase"
                     onClick={() => handleDelivered(order)}
                   >
-                    Mark as delivered
+                    Kirim Sekarang
                   </button>
                 )}
               </div>
-
-              <h3>Payment</h3>
-              {order.method && (
-                <h6>
-                  Method: <em>{order.method}</em>
-                </h6>
-              )}
-
-              {order.paymentId && (
-                <p>
-                  PaymentId: <em>{order.paymentId}</em>
-                </p>
-              )}
-
               <div
                 className={`alert ${
                   order.paid ? "alert-success" : "alert-danger"
@@ -93,15 +98,21 @@ export default function OrderDetail({ orderDetail, state, dispatch }) {
                         d-flex justify-content-between align-items-center`}
                 role="alert"
               >
-                {order.paid ? `Paid on ${order.dateOfPayment}` : "Not Paid"}
+                {order.paid ? `Payment on ${order.updatedAt}` : "Not Paid"}
+                {auth.user.role !== "admin" && !order.paid && (
+                  <button
+                    className="btn btn-dark text-uppercase"
+                    onClick={() => handlePayment(order)}
+                  >
+                    Bayar Sekarang
+                  </button>
+                )}
               </div>
-
               <div>
-                <h3>Order Items</h3>
+                <h3>Detail Pesanan</h3>
                 {order.cart.map((item) => (
                   <div
-                    className="row border-bottom mx-0 p-2 justify-content-betwenn
-                                    align-items-center"
+                    className="row border-bottom"
                     key={item._id}
                     style={{ maxWidth: "550px" }}
                   >
@@ -115,28 +126,22 @@ export default function OrderDetail({ orderDetail, state, dispatch }) {
                       }}
                     />
 
-                    <h5 className="flex-fill text-secondary px-3 m-0">
-                      <Link href={`/product/${item._id}`}>
-                        <a>{item.title}</a>
-                      </Link>
+                    <h5 className="flex-fill text-secondary m-0">
+                      <Link href={`/product/${item._id}`}>{item.title}</Link>
                     </h5>
 
-                    <span className="text-info m-0">
-                      {item.quantity} x ${item.price} = $
+                    <span className="text-primary m-0">
+                      {item.quantity} x Rp {item.price} = Rp{" "}
                       {item.price * item.quantity}
                     </span>
                   </div>
                 ))}
               </div>
+              <div>
+                <h4>Total: Rp {order.total}</h4>
+              </div>
             </div>
           </div>
-
-          {!order.paid && auth.user.role !== "admin" && (
-            <div className="p-4">
-              <h2 className="mb-4 text-uppercase">Total: ${order.total}</h2>
-              <PaypalBtn order={order} />
-            </div>
-          )}
         </div>
       ))}
     </>

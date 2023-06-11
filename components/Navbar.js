@@ -62,13 +62,13 @@ export default function Navbar({}) {
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <li>
             <Link href="/profile" className="dropdown-item">
-              Profile
+              Profil
             </Link>
           </li>
           {/* <li>{auth.user.role === "admin" && adminRouter()}</li> */}
           <li>
             <button className="dropdown-item" onClick={handleLogout}>
-              Logout
+              Keluar
             </button>
           </li>
         </ul>
@@ -119,7 +119,7 @@ export default function Navbar({}) {
                     {cart.length}
                   </span>
                 </i>{" "}
-                Cart
+                Keranjang
               </Link>
             </li>
             {Object.keys(auth).length === 0 ? (
