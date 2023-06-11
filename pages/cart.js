@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from "react";
 
 export default function Cart() {
   const { state, dispatch } = useContext(DataContext);
-  const { cart, auth } = state;
+  const { cart, auth, orders } = state;
 
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState("");
@@ -52,7 +52,7 @@ export default function Cart() {
       };
       updateCart();
     }
-  }, []);
+  }, [callback]);
 
   const handlePayment = async () => {
     if (!address || !mobile)
